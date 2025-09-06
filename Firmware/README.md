@@ -1,0 +1,1 @@
+> The firmware is currently developed on a pre-configured dev-kit, and will be switched to a dedicated board in the future.
