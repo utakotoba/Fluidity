@@ -1,3 +1,7 @@
+# Wi-Fi configuration
+CONFIG_WIFI_SSID=""
+CONFIG_WIFI_PASSWORD=""
+
 # Custom partition table
 CONFIG_PARTITION_TABLE_CUSTOM=y
 CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
