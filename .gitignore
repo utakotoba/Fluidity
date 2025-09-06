@@ -1,0 +1,6 @@
+# development
+build
+sdkconfig.old
+
+# os-related
+.DS_Store
