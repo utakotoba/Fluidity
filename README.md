@@ -4,7 +4,7 @@ The Fluidity project is a small hardware device that shares connected USB endpoi
 
 ### Progress
 
-> Still in early development.
+> Pending. The protocol architecure is redesigning and in private verification stage.
 
 Currently, an ESP32-S3 chip has been selected as the main MCU to handle network traffic and protocol conversion. This choice is based on an [existing project](https://github.com/chegewara/esp32-usbip-poc) that provides a proof of concept on this chip. Although it comes with some limitations, it serves as a solid starting point for further improvement. The work is currently based on the latest stable release of [ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32s3/index.html).
 
