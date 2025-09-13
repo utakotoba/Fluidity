@@ -69,7 +69,8 @@
       "type_traits": "cpp",
       "utility": "cpp",
       "format": "cpp",
-      "ostream": "cpp"
+      "ostream": "cpp",
+      "thread": "cpp"
     }
   }
 }

@@ -59,11 +59,13 @@ class Controller {
 
   /**
    * @brief Initialize WiFi in station mode and attempt connection
+   * @param ssid WiFi SSID to connect to
+   * @param password WiFi password
    * @return ESP_OK on successful connection, ESP_ERR_INVALID_ARG if credentials
    *         are invalid, or other ESP error codes on failure
    * @warning This function blocks until connection succeeds or fails
    */
-  esp_err_t init_sta();
+  esp_err_t init_sta(const std::string& ssid, const std::string& password);
 
   /**
    * @brief Get the current IP address as a shared pointer
@@ -113,9 +115,11 @@ class Controller {
 
   // Private helper methods
   esp_err_t setup_netif_and_events();
-  esp_err_t configure_wifi_credentials();
+  esp_err_t configure_wifi_credentials(const std::string& ssid,
+                                       const std::string& password);
   esp_err_t start_wifi_and_wait();
-  bool validate_credentials();
+  bool validate_credentials(const std::string& ssid,
+                            const std::string& password);
   void set_connection_error(ConnectionError error);
 
   // Event handlers
@@ -142,11 +146,13 @@ class Controller {
 
 /**
  * @brief Launch WiFi controller and attempt connection
+ * @param ssid WiFi SSID to connect to
+ * @param password WiFi password
  * @return ESP_OK on successful connection, or an ESP error code on failure
  * @note This is a convenience function that calls
- * Controller::get_instance().init_sta()
+ * Controller::get_instance().init_sta(ssid, password)
  */
-esp_err_t launch();
+esp_err_t launch(const std::string& ssid, const std::string& password);
 
 /**
  * @brief Get the current IP address as a string
