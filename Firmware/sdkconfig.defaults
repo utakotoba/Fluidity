@@ -1,0 +1,3 @@
+# Wi-Fi configuration
+CONFIG_WIFI_SSID=""
+CONFIG_WIFI_PASSWORD=""
