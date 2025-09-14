@@ -22,7 +22,7 @@ void TcpServer::start(uint16_t port) {
   }
 
   xTaskCreate(tcp_server_task, "main_tcp_server", 8192, (void*)(uintptr_t)port,
-              6, NULL);
+              5, NULL);
 }
 
 void TcpServer::tcp_server_task(void* pvParameters) {
