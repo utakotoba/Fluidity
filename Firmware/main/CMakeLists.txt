@@ -4,12 +4,14 @@ set(
   "main.cpp"
   "nvs_controller.cpp"
   "wifi_controller.cpp"
+  "tcp_server.cpp"
 )
 set(
   COMPONENT_REQUIRES
   nvs_flash
   esp_wifi
   esp_event
+  esp_psram
 )
 
 register_component()
