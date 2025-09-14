@@ -1,6 +1,5 @@
 # development
 build
-sdkconfig
 sdkconfig.old
 
 # os-related
