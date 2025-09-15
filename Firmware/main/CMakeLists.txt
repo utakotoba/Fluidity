@@ -5,6 +5,7 @@ set(
   "nvs_controller.cpp"
   "wifi_controller.cpp"
   "tcp_server.cpp"
+  "usbip.cpp"
 )
 set(
   COMPONENT_REQUIRES
