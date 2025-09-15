@@ -15,6 +15,14 @@ void TcpServer::set_message_handler(client_handler_t handler) {
   message_handler_ = handler;
 }
 
+void TcpServer::set_on_connect_handler(on_connect_handler_t handler) {
+  on_connect_handler_ = handler;
+}
+
+void TcpServer::set_on_disconnect_handler(on_disconnect_handler_t handler) {
+  on_disconnect_handler_ = handler;
+}
+
 void TcpServer::start(uint16_t port) {
   if (!message_handler_) {
     ESP_LOGE(TAG, "No message handler set, server stopped");
@@ -174,6 +182,10 @@ void TcpServer::handle_new_connection(int listen_sock) {
     ESP_LOGD("TCP", "Client connected from %s:%d, socket %d",
              inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port),
              client_sock);
+
+    if (on_connect_handler_) {
+      on_connect_handler_(client_sock, client_addr);
+    }
   } else {
     ESP_LOGW("TCP", "Max clients (%d) reached, rejecting connection from %s:%d",
              MAX_CLIENTS, inet_ntoa(client_addr.sin_addr),
@@ -216,12 +228,18 @@ void TcpServer::handle_client_data(client_info_t& client) {
       // Handler failed, close connection
       ESP_LOGD("TCP", "Handler failed for socket %d, closing connection",
                client.sock);
+      if (on_disconnect_handler_) {
+        on_disconnect_handler_(client.sock);
+      }
       close(client.sock);
       client.active = false;
     } else if (strlen(response) == 0) {
       // Handler wants to close connection
       ESP_LOGD("TCP", "Handler requested connection close for socket %d",
                client.sock);
+      if (on_disconnect_handler_) {
+        on_disconnect_handler_(client.sock);
+      }
       close(client.sock);
       client.active = false;
     } else {
@@ -231,6 +249,9 @@ void TcpServer::handle_client_data(client_info_t& client) {
       if (sent < 0 && errno != EAGAIN && errno != EWOULDBLOCK) {
         ESP_LOGD("TCP", "Send failed for socket %d: %s", client.sock,
                  strerror(errno));
+        if (on_disconnect_handler_) {
+          on_disconnect_handler_(client.sock);
+        }
         close(client.sock);
         client.active = false;
       } else if (sent < (ssize_t)strlen(response)) {
@@ -243,6 +264,9 @@ void TcpServer::handle_client_data(client_info_t& client) {
     // Connection closed or error
     ESP_LOGD("TCP", "Client disconnected, socket %d: %s", client.sock,
              rlen == 0 ? "connection closed" : strerror(errno));
+    if (on_disconnect_handler_) {
+      on_disconnect_handler_(client.sock);
+    }
     close(client.sock);
     client.active = false;
   }
@@ -264,6 +288,9 @@ void TcpServer::cleanup_inactive_clients() {
     if (client.active &&
         (now - client.last_activity) > client_timeout_seconds_) {
       ESP_LOGD("TCP", "Client timeout, closing socket %d", client.sock);
+      if (on_disconnect_handler_) {
+        on_disconnect_handler_(client.sock);
+      }
       close(client.sock);
       client.active = false;
     }
