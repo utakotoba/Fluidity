@@ -1,6 +1,6 @@
 #pragma once
 
-#include "esp_log.h"
+#include <stdint.h>
 
 namespace usbip {
 
