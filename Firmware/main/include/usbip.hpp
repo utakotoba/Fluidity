@@ -4,7 +4,7 @@
 
 namespace usbip {
 
-const uint16_t USBIP_VERSION = 0x0111;  // USB/IP protocol version 1.1.1
+const uint16_t VERSION = 0x0111;  // USB/IP protocol version 1.1.1
 
 /* ------------------------------------------------------------------------- */
 /* Operation Stage (list & import)                                           */
