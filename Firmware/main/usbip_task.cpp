@@ -1,1 +1,0 @@
-#include "usbip_defs.hpp"
