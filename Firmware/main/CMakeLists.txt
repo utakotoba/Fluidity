@@ -4,7 +4,7 @@ set(
   "main.cpp"
   "nvs_controller.cpp"
   "wifi_controller.cpp"
-  "tcp_server.cpp"
+  "tcp_server_unit.cpp"
 )
 set(
   COMPONENT_REQUIRES

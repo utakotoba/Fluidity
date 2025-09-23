@@ -1,6 +1,5 @@
 #include "nvs_controller.hpp"
 #include "sdkconfig.h"
-#include "tcp_server.hpp"
 #include "wifi_controller.hpp"
 
 // #define HTTP_RESPONSE            \
