@@ -40,7 +40,7 @@ class TcpServer {
 
  private:
   TcpServer();
-  // ~TcpServer();
+  ~TcpServer();
 
   static constexpr const char* TAG = "tcp_server";
   std::vector<client_info_t> clients_;
@@ -60,8 +60,5 @@ class TcpServer {
   int set_nonblocking(int sock);
   void cleanup_inactive_clients();
 };
-
-void set_message_handler(client_handler_t handler);
-void launch(uint16_t port);
 
 }  // namespace server

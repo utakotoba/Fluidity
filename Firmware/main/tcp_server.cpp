@@ -6,6 +6,10 @@ TcpServer::TcpServer() {
   clients_.reserve(MAX_CLIENTS);
 }
 
+TcpServer::~TcpServer() {
+  cleanup_inactive_clients();
+}
+
 TcpServer& TcpServer::get_instance() {
   static TcpServer instance;
   return instance;
@@ -295,14 +299,6 @@ void TcpServer::cleanup_inactive_clients() {
       client.active = false;
     }
   }
-}
-
-void set_message_handler(client_handler_t handler) {
-  TcpServer::get_instance().set_message_handler(handler);
-}
-
-void launch(uint16_t port) {
-  TcpServer::get_instance().start(port);
 }
 
 }  // namespace server
